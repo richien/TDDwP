@@ -12,7 +12,7 @@ class NewVisitorTest(unittest.TestCase):
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		# A user has heard about a cool new online to-do app. He goes
 		# to check out its homepage
-		self.browser.get('http://192.168.62.130:9000')
+		self.browser.get('http://192.168.62.130:9000/lists/')
 
 		# He notices the page title and header mention to-do lists
 		self.assertIn('To-Do', self.browser.title)
