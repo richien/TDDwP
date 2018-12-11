@@ -5,20 +5,23 @@ import time
 from django.test import LiveServerTestCase
 
 class NewVisitorTest(LiveServerTestCase):
-	def setUp(self):
-		self.browser = webdriver.Firefox()
-		self.browser.implicitly_wait(3)
-		self.live_server_url = 'http://192.168.62.130:9000/lists/'
 
-	def tearDown(self):
-		self.browser.quit()
+	@classmethod
+	def setUpClass(cls):
+		super().setUpClass()
+		cls.browser = webdriver.Firefox()
+		cls.browser.implicitly_wait(3)
+
+	@classmethod
+	def tearDownClass(cls):
+		cls.browser.quit()
+		super().tearDownClass()
 
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		# A user has heard about a cool new online to-do app. He goes
 		# to check out its homepage
-		self.browser.get(self.live_server_url)
-		#self.browser.get('http://192.168.62.130:9000/lists/')
-
+		self.browser.get('%s%s' % (self.live_server_url, '/lists/'))
+		
 		# He notices the page title and header mention to-do lists
 		self.assertIn('To-Do', self.browser.title)
 		header_text = self.browser.find_element_by_tag_name('h1').text
